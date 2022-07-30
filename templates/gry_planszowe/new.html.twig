@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New GryPlanszowe{% endblock %}
+
+{% block body %}
+    <div class="h4 text-light" style="padding: 10px" >
+        {{ include('gry_planszowe/_form.html.twig') }}
+    </div>
+    <a class="h5 text-danger text-decoration-none" style="padding: 10px" href="{{ path('app_gry_planszowe_index') }}">Powrót</a>
+{% endblock %}

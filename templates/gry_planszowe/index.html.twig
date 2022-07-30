@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gry Planszowe {% endblock %}
+
+{% block body %}
+    {% if app.user %}
+        <div class="h4 mb-3 text-light">
+            Jeteś zalogowany {{ app.user.userIdentifier }}, <a class="text-danger text-decoration-none"href="{{ path('app_logout') }}">Wyloguj</a>
+        </div>
+
+        {% elseif not app.user%}
+
+        <div class="col-md-12 text-center">
+            <h1 class="h2 mb-2 font-weight-normal text-light">Witaj Pogromco Planszówek!</h1>
+            <br>
+            <h1 class="h3 mb-3 font-weight-normal text-light">Oto strona na której dowiesz się czy w towjej ulubionej planszówce z naszego lokalu nie zabrakło jakiejś części. Jeśli sam zauważysz, że czegoś brakuje zachęcamy abyś dodał grę do listy. Dzięki temu pomożesz przyszłym graczom. Proszę zaloguj się aby móc w pełni kożysztać z naszej strony.</h1>
+            <a href="{{ path('app_login') }}" class="btn btn-primary btn-success btn-lg active" role="button" aria-pressed="true">Zaloguj się</a>
+            <a href="{{ path('app_register') }}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Rejestracja</a>
+        </div>
+
+    {% endif %}
+
+    {% if (is_granted('ROLE_ADMIN'))%}
+
+        <table class="table table-bordered table-light">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nazwa</th>
+                <th>Opis</th>
+                <th>Gra uzupełniona?</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for gry_planszowe in gry_planszowes %}
+                <tr>
+                    <td>{{ gry_planszowe.id }}</td>
+                    <td>{{ gry_planszowe.nazwa }}</td>
+                    <td>{{ gry_planszowe.opis }}</td>
+                    <td>{{ gry_planszowe.uzupelnienie ? 'Tak' : 'Nie'}}</td>
+                    <td>
+                        <a class=" text-danger text-decoration-none" href="{{ path('app_gry_planszowe_edit', {'id': gry_planszowe.id}) }}">Edytuj</a>
+                        <a class=" text-decoration-none text-success" style="margin-left: 10px;" href="{{ path('app_change', {'id': gry_planszowe.id}) }}">Dodano brakujące części</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">Brak Niekompletnych Gier!!</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a class="h3 text-danger text-decoration-none" href="{{ path('app_gry_planszowe_new') }}">Dodaj Grę</a>
+
+    {%elseif(is_granted('ROLE_USER'))%}
+
+        <table class="table table-bordered table-light">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nazwa</th>
+                <th>Opis</th>
+                <th>Gra uzupełniona?</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for gry_planszowe in gry_planszowes %}
+                <tr>
+                    <td>{{ gry_planszowe.id }}</td>
+                    <td>{{ gry_planszowe.nazwa }}</td>
+                    <td>{{ gry_planszowe.opis }}</td>
+                    <td>{{ gry_planszowe.uzupelnienie ? 'Tak' : 'Nie'}}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">Brak Niekompletnych Gier!!</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+<a class="h3 text-danger text-decoration-none" href="{{ path('app_gry_planszowe_new') }}">Dodaj Grę</a>
+
+    {% endif %}
+{% endblock %}

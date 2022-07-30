@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rejestracja{% endblock %}
+
+{% block body %}
+
+    <h1 class="h3 mb-3 font-weight-normal text-light">Rejestracja</h1>
+<div class="h4 d-grid gap-3 form-control" style="margin-right: 5px;">
+   {{ form_start(registrationForm) }} <br>
+        {{ form_row(registrationForm.email) }} <br>
+
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Hasło'
+    }) }} <br>
+        {{ form_row(registrationForm.agreeTerms) }}<br>
+    </div>
+        <button type="submit" class="btn btn-lg btn-success">Zarejestruj się</button>
+    {{ form_end(registrationForm) }}
+
+{% endblock %}

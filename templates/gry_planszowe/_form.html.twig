@@ -1,0 +1,8 @@
+<div class="h4 text-light " >
+    {{ form_start(form) }}</p> <br>
+    <p style="margin-top:2px;"> Nazwa: {{ form_widget(form.nazwa) }} </p>
+    <p style="margin-top:2px;"> Opis: {{ form_widget(form.opis) }} </p>
+    <p style="margin-top:2px;"> Gra uzupełniona?{{ form_widget(form.uzupelnienie) }}</p>
+    <button class="btn btn-lg btn-success">{{ button_label|default('Dodaj') }}</button>
+{{ form_end(form) }}
+</div>
